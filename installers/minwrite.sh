@@ -54,8 +54,6 @@ function _get_linux_distro() {
         RELEASE=$VERSION_ID
         CODENAME=$VERSION_CODENAME
         DESC=$PRETTY_NAME
-    else
-        _install_status 1 "Unsupported Linux distribution"
     fi
 }
 

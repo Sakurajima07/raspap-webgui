@@ -149,15 +149,15 @@ function _get_linux_distro() {
         RELEASE=$VERSION_ID
         CODENAME=$VERSION_CODENAME
         DESC=$PRETTY_NAME
-    else
-        _install_status 1 "Unsupported Linux distribution"
-        exit 0
     fi
 }
 
 # Sets php package option based on Linux version, abort if unsupported distro
 function _set_php_package() {
     case $RELEASE in
+	2025.3) #Kali 2025.3
+	    php_package="php8.4-fpm"
+	    phpiniconf="/etc/php/8.4/fpm/php.ini" ;;
         13) # Debian 13 trixie
             php_package="php8.4-fpm"
             phpiniconf="/etc/php/8.4/fpm/php.ini" ;;
@@ -247,6 +247,12 @@ function _install_dependencies() {
         echo "${php_package} will be installed from the main deb sources list"
     fi
     if [ ${OS,,} = "debian" ] || [ ${OS,,} = "ubuntu" ]; then
+        dhcpcd_package="dhcpcd5"
+        iw_package="iw"
+        rsync_package="rsync"
+        echo "${dhcpcd_package}, ${iw_package} and ${rsync_package} will be installed from the main deb sources list"
+    fi
+    if [ ${OS,,} = "Kali" ] || [ ${OS,,} = "ubuntu" ]; then
         dhcpcd_package="dhcpcd5"
         iw_package="iw"
         rsync_package="rsync"
